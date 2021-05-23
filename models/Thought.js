@@ -27,11 +27,18 @@ const ReactionSchema = new Schema(
     toJSON: {
       getters: true
     }
+    ,
+    id: false
   }
+  
 );
 
 const ThoughtSchema = new Schema(
   {
+    thoughtId : {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId()
+    },
     username: {
       type: String,
       required: true
@@ -46,14 +53,13 @@ const ThoughtSchema = new Schema(
       get: createdAtVal => dateFormat(createdAtVal)
     },
     // use ReplySchema to validate data for a reply
-    reactions: [ReactionSchema]
+    reactions: [ ReactionSchema ]
   },
   {
     toJSON: {
       virtuals: true,
       getters: true
-    },
-    id: false
+    }
   }
 );
 
